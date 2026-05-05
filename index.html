@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ICD Guatire - Invitación</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Contenedor principal con la imagen de base */
+        .invitation-canvas {
+            position: relative;
+            width: 100%;
+            max-width: 450px; /* Tamaño optimizado para móviles */
+            aspect-ratio: 1080 / 1920; /* Proporción de la imagen cargada */
+            background-image: url('invitaBASE.jpg');
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            overflow: hidden;
+        }
+
+        /* Área interactiva sobre el botón "DESCUBRE" de la imagen */
+        .interactive-trigger {
+            position: absolute;
+            top: 56%; /* Ajustado para calzar con el botón verde en la imagen */
+            left: 49%;
+            transform: translate(-50%, -50%);
+            width: 53%;
+            height: 4.5%;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0); /* Invisible */
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        /* Efecto visual al tocar el botón en móviles o pasar el mouse */
+        .interactive-trigger:active, .interactive-trigger:hover {
+            background: rgba(132, 189, 71, 0.2);
+            box-shadow: 0 0 20px rgba(132, 189, 71, 0.6);
+        }
+
+        /* Capa de información (Modal) */
+        .info-panel {
+            position: absolute;
+            bottom: -100%;
+            left: 0;
+            width: 100%;
+            height: 70%;
+            background: linear-gradient(180deg, rgba(0, 56, 68, 0.98) 0%, #003844 100%);
+            color: white;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 20;
+            border-top-left-radius: 30px;
+            border-top-right-radius: 30px;
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+        }
+
+        .info-panel.active {
+            bottom: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            color: #84bd47;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Animación para llamar la atención sobre el botón */
+        .pulse-hint {
+            position: absolute;
+            top: 56%;
+            left: 49%;
+            transform: translate(-50%, -50%);
+            width: 53%;
+            height: 4.5%;
+            border: 2px solid rgba(255,255,255, 0.5);
+            border-radius: 10px;
+            pointer-events: none;
+            animation: pulse-border 2s infinite;
+        }
+
+        @keyframes pulse-border {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(1.1); opacity: 0; }
+        }
+
+        .contact-button {
+            background-color: #84bd47;
+            color: #003844;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: transform 0.2s;
+        }
+
+        .contact-button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="invitation-canvas">
+        <!-- Indicador visual sutil -->
+        <div class="pulse-hint"></div>
+
+        <!-- El gatillo invisible sobre "DESCUBRE" -->
+        <div class="interactive-trigger" onclick="openPanel()"></div>
+
+        <!-- Panel de información que aparece al hacer clic -->
+        <div id="infoPanel" class="info-panel">
+            <span class="close-btn" onclick="closePanel()">&times;</span>
+            
+            <h2 class="text-2xl font-bold text-[#84bd47] mb-2">¡TU MOMENTO ES AHORA!</h2>
+            <div class="w-16 h-1 bg-[#00a7b5] mb-6"></div>
+            
+            <p class="text-sm md:text-base mb-6 leading-relaxed">
+                Únete a la comunidad creativa más grande de Guatire. En el <b>Instituto Creativo Digital</b> te formamos en las carreras con mayor demanda laboral.
+            </p>
+
+            <div class="grid grid-cols-1 gap-4 w-full text-left mb-8">
+                <div class="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                    <div class="text-[#84bd47]">📍</div>
+                    <div>
+                        <p class="text-xs font-bold text-[#00a7b5]">UBICACIÓN</p>
+                        <p class="text-xs">Res.Cotoperí, Calle de Servicio, Guatire.</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 bg-white/5 p-3 rounded-xl border border-white/10">
+                    <div class="text-[#84bd47]">🎨</div>
+                    <div>
+                        <p class="text-xs font-bold text-[#00a7b5]">NUESTRAS CARRERAS</p>
+                        <p class="text-xs">Diseño Gráfico, Ilustración.</p>
+                    </div>
+                </div>
+            </div>
+
+            <a href="https://willmerguerra6-coder.github.io/DESCUBRE-AL-ICD/" target="_blank" class="contact-button">
+                MÁS INFORMACIÓN
+            </a>
+            
+            <p class="mt-6 text-[10px] opacity-50 uppercase tracking-widest">icd guatire • crea el mundo que imaginas</p>
+        </div>
+    </div>
+
+    <script>
+        function openPanel() {
+            document.getElementById('infoPanel').classList.add('active');
+        }
+
+        function closePanel() {
+            document.getElementById('infoPanel').classList.remove('active');
+        }
+    </script>
+</body>
+</html>
